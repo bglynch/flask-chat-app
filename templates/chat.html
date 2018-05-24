@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat Page</title>
+</head>
+
+<body>
+    <h1>This is the Chat Page</h1>
+    <h2>You are logged in as {{the_username}}</h2>
+    
+    <!--Chat form for posting messages-->
+    <form action="/{{the_username}}/new" method="POST">
+        <input type="text" name="message" placeholder="What's Up"/>
+        <input type="submit" value="Send"/>
+    </form>
+    
+    <!--Loops through the_messages list and prints-->
+    {% for message in the_messages %}
+        <p><strong>{{ message.sender }}</strong>: {{message.body}}</p>
+    {% endfor %}
+</body>
+
+</html>
