@@ -11,17 +11,27 @@
 <body>
     <h1>This is the Chat Page</h1>
     <h2>You are logged in as {{the_username}}</h2>
-    
+
     <!--Chat form for posting messages-->
     <form action="/{{the_username}}/new" method="POST">
-        <input type="text" name="message" placeholder="What's Up"/>
-        <input type="submit" value="Send"/>
+        <input type="text" name="message" placeholder="What's Up" />
+        <input type="hidden" name="username" value="{{ logged_in_as}}" />
+        <input type="submit" value="Send" />
     </form>
-    
+
     <!--Loops through the_messages list and prints-->
     {% for message in the_messages %}
-        <p><strong>{{ message.sender }}</strong>: {{message.body}}</p>
+    <p><strong>{{ message.sender }}</strong>: {{message.body}}</p>
     {% endfor %}
+<script type="text/javascript">
+    // setTimeout(function(){
+    //     location.reload();
+    // }, 5000);
+        
+</script>
+
+
+
 </body>
 
 </html>
