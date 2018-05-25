@@ -1,6 +1,7 @@
 import os
 from flask import Flask, redirect, render_template, request
 
+# creates the flask app.
 app = Flask(__name__)
 
 # Stores messages between requests
@@ -52,7 +53,7 @@ def add_message(username):
     text = ' '.join(new_words_list)
     
     '''
-    Michael's method
+    List comprehension method
     words = text.split()
     words = [ "*" * len(word) if word.lower() in banned_words else word for word in words]
     text = " ".join(map(str,words))
@@ -66,13 +67,7 @@ def add_message(username):
     return redirect(username)
 
 
-
-
-
-
-
-
-
-app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug = True)
+if __name__ == '__main__':
+    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')))
 
 
