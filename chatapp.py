@@ -5,8 +5,7 @@ from flask import Flask, redirect, render_template, request
 app = Flask(__name__)
 
 # Stores messages between requests
-messages = []
-
+MESSAGES = []
 banned_words = ['feck', 'arse', 'girls']
 
 # rooms = {
@@ -33,7 +32,14 @@ def get_username():
 # Username page opens chat.html
 @app.route("/<username>")
 def get_user_page(username):
-    return render_template("chat.html", the_username = username, the_messages = messages)
+    filtered_messages = []
+    for i in MESSAGES:
+            if i['body'][0] != '@':
+                filtered_messages.append(i)
+            elif i['body'].split()[0][1:] == username:
+                filtered_messages.append("<strong>"+i+"</strong>")
+
+    return render_template("chat.html", the_username = username, the_messages = filtered_messages)
 
 
 # username/new is a dump file for the chat form
@@ -63,11 +69,11 @@ def add_message(username):
         'sender':username,
         'body': text
     }
-    messages.append(message)
+    MESSAGES.append(message)
     return redirect(username)
 
 
 if __name__ == '__main__':
-    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')))
+    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
 
 
