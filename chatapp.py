@@ -23,7 +23,7 @@ banned_words = ['feck', 'arse', 'girls']
 def landing_page():
     return render_template("index.html")
 
-# Type in user name
+# Username login..../login is a dump location
 @app.route("/login")
 def get_username():
     username = request.args.get('user')
@@ -36,7 +36,7 @@ def get_user_page(username):
     for i in MESSAGES:
             if i['body'][0] != '@':
                 filtered_messages.append(i)
-            elif i['body'].split()[0][1:] == username:
+            elif i['body'].split()[0][1:] == username or i['sender'] == username:
                 filtered_messages.append("<strong>"+i+"</strong>")
 
     return render_template("chat.html", the_username = username, the_messages = filtered_messages)
